@@ -4,7 +4,9 @@ import time
 import sound_effect
 from score_board import ScoreBoard
 from food import Food
+
 GAME_DIMENSION_LIMIT = 290
+game_speed = 0.1
 
 
 sound_effect.background_music('off')
@@ -22,7 +24,7 @@ game_running = True
 while game_running:
     score_board.update()
     screen.update()
-    time.sleep(0.1)
+    time.sleep(game_speed)
     snake.move()
 
     # Detect collision with food
@@ -42,7 +44,15 @@ while game_running:
     for segment in snake.segments[1:]:
         if snake.head.distance(segment) < 10:
             game_running = False
+            snake.hideturtle()
+            food.hideturtle()
             score_board.game_over()
 
+    if 50 <= score_board.score < 30:
+        game_speed = 0.030
+    elif 20 <= score_board.score < 10:
+        game_speed = 0.050
+    elif score_board.score >= 10:
+        game_speed = 0.075
 
 screen.exitonclick()
