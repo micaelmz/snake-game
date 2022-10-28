@@ -36,15 +36,14 @@ while game_running:
 
     # Detect collision with the wall
     if snake.head.xcor() > GAME_DIMENSION_LIMIT or snake.head.xcor() < -GAME_DIMENSION_LIMIT or snake.head.ycor() > GAME_DIMENSION_LIMIT or snake.head.ycor() < -GAME_DIMENSION_LIMIT:
-        sound_effect.background_music('off')
+        food.hideturtle()
         score_board.game_over()
         game_running = False
 
-    # Detect collision with the wall
+    # Detect collision with the body
     for segment in snake.segments[1:]:
         if snake.head.distance(segment) < 10:
             game_running = False
-            snake.hideturtle()
             food.hideturtle()
             score_board.game_over()
 
